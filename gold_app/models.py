@@ -1,62 +1,48 @@
 from django.db import models
-from multiselectfield import MultiSelectField
-# from phonenumber_field.modelfields import PhoneNumberField
-#  phone = PhoneNumberField(null=False, blank=False, unique=True)
-CHOISES = (('active','ACTIVE'),
-('inactive','INACTIVE'),
-('under review','UNDER REVIEW'))
-
-status_vcm = (('active','ACTIVE'),
-('probation','PROBATION'))
-
-# GLA_req_retrieval_required =(('yes','YES'),
-# ('no','NO'))
-
-# GLA_req_tenure = (('12','12'),
-# ('24','24'),
-# ('36','36'))
-
-
-
 # Create your models here.
 class branch(models.Model):
-    branch_name = models.CharField(max_length = 30)
-    branch_code = models.CharField(max_length = 3)
+    branch_code = models.CharField(primary_key=True, max_length = 100)
+    branch_name = models.CharField(unique = True, max_length = 30)
     # s_no = models.AutoField()
     # def __unicode__(self):
     #     return u'%s' % (self.branch_name)
+    # class Meta:
+    #     ordering = []
+
 
 class collection_day (models.Model):
-    collection_day = models.CharField(max_length = 30)
+    coll_id = models.IntegerField(primary_key = True,default = 0) 
+    collection_day = models.CharField(max_length = 100,null = True )
 
 class collection_time(models.Model):
-    collection_time = models.DateTimeField()
+    coll_time_id = models.IntegerField(primary_key = True,default = 0)
+    collection_time = models.CharField( max_length=50,null = True)
 
 class community(models.Model):
-    community_name = models.CharField(max_length = 30)
-    comm_branch = models.ForeignKey('branch',to_field = 'branch_code', on_delete=models.CASCADE)
+    community_name = models.CharField(max_length = 100,null = True)
+    comm_branch = models.ForeignKey(branch, on_delete=models.CASCADE,null = True)
 
 class center(models.Model):
-    center_num = models.CharField(max_length = 30)
-    center_name = models.CharField(max_length= 30)
-    center_branch =  models.ForeignKey(branch,to_field = 'branch_code',on_delete=models.CASCADE)
-    collection_day = models.ForeignKey(collection_day,on_delete=models.CASCADE)
-    collection_start_time = models.ForeignKey(collection_time,on_delete=models.CASCADE)
+    center_code = models.CharField(primary_key = True, max_length = 100)
+    center_name = models.CharField(max_length= 100,null = True)
+    center_branch =  models.ForeignKey(branch,on_delete=models.CASCADE)
+    collection_day = models.ForeignKey(collection_day,to_field = 'coll_id',null = True,on_delete=models.CASCADE)
+    collection_start_time = models.ForeignKey(collection_time,to_field = 'coll_time_id',null = True,on_delete=models.CASCADE)
     # fo = models.ForeignKey(fo)
     # coll_review_day = models.ForeignKey(collection_day,on_delete=models.CASCADE)
     # coll_review_time = models.ForeignKey(collection_time,on_delete=models.CASCADE)
-    center_status = MultiSelectField(max_length = 12, choices = CHOISES) #multiple choise
-    vcm_status = MultiSelectField(max_length = 12, choices = status_vcm )
+    # center_status = MultiSelectField(max_length = 12, choices = CHOISES) #multiple choise
+    # vcm_status = MultiSelectField(max_length = 12, choices = status_vcm )
 
 class group (models.Model):
-    group_num = models.CharField(max_length = 30)
-    group_name = models.CharField(max_length = 30)
+    group_code = models.CharField(primary_key = True, max_length = 100)
+    group_name = models.CharField(max_length = 100)
     # group_leader = models.ForeignKey(member, on_delete=models.CASCADE)
-    center = models.ForeignKey(center,on_delete=models.CASCADE)
+    # group_center_code = models.ForeignKey(center,on_delete=models.CASCADE)
     collection_time = models.ForeignKey(collection_time,on_delete=models.CASCADE)
 
 class GLA(models.Model):
-    branch = models.ForeignKey(branch , on_delete=models.CASCADE)
+    gla_branch = models.ForeignKey(branch , on_delete=models.CASCADE)
     # borrower = models.ForeignKey(member , on_delete=models.CASCADE)
     cot_balance = models.DecimalField(max_digits=9, decimal_places=2)
     param_interest_rate_gl = models.IntegerField()
@@ -128,59 +114,31 @@ class gold_lot(models.Model):
     # retrieval_outcome = multiple choice 
 
 class Role(models.Model):
-    role_name = models.CharField(max_length = 30)
+    role_name = models.CharField(max_length = 100, null = True)
 
 class User(models.Model):
-    role = models.ManyToManyField(Role)
-    mem_num = models.CharField(max_length = 30)
-    first_name = models.CharField(max_length = 30)
-    middle_name = models.CharField(max_length = 30)
-    last_name = models.CharField(max_length = 30)
-    aadhar = models.CharField(max_length = 30)
-    pan = models.CharField(max_length = 30)
-    date_of_birth = models.DateField()
+    role = models.ManyToManyField(Role,null = True)
+    mem_num = models.CharField(primary_key = True,max_length = 100)
+    first_name = models.CharField(max_length = 100, null = True)
+    middle_name = models.CharField(max_length = 100, null = True)
+    last_name = models.CharField(max_length = 100, null = True)
+    aadhar = models.CharField(max_length = 100, null = True)
+    pan = models.CharField(max_length = 100, null = True)
+    date_of_birth = models.DateField( null = True)
     # marital_status = models.MultiSelectField()
-    mobile_registred = models.CharField(max_length = 10)
-    mobile_whatsapp = models.CharField(max_length = 10)
-    date_of_signup = models.DateField()
-    date_of_memstart = models.DateField()
+    mobile_registred = models.CharField(max_length = 100, null = True)
+    mobile_whatsapp = models.CharField(max_length = 100, null = True)
+    date_of_signup = models.DateField(null = True)
+    date_of_memstart = models.DateField( null = True)
     # collection_frequency = models.MultiSelectField()
-    cot_balance = models.IntegerField()
-    cot_emi = models.IntegerField()
-    sa_balance = models.IntegerField()
-    group = models.ForeignKey(group,on_delete=models.CASCADE)
+    cot_balance = models.IntegerField( null = True)
+    cot_emi = models.IntegerField( null = True)
+    sa_balance = models.IntegerField( null = True)
+    user_group = models.ForeignKey(group,to_field= 'group_code', null = True,on_delete=models.CASCADE)
     # fo = models.ForeignKey(fo,)
-    branch = models.ForeignKey(branch,on_delete = models.CASCADE)
-    center = models.ForeignKey(center,on_delete =  models.CASCADE)
+    user_branch = models.ForeignKey(branch,to_field = 'branch_code', on_delete = models.CASCADE, null = True)
+    user_center = models.ForeignKey(center,to_field = 'center_code', on_delete =  models.CASCADE, null = True)
     # user_status  = models.MultiSelectField()
     # user_role = 
     # community = 
-    date_of_food_distribution = models.DateField()
-
-
-   
-
-
-    # User_roles = (
-    #     ('fo', 'FO'),
-    #     ('transporter', 'Transporter'),
-    #     ('scm', 'SCM'),
-    #     ('Am','AM'),
-    #     ('Rm','RM')
-    #     ('admin gold','Admin Gold'),
-    # )
-    # roles = models.CharField(max_length=20,choices=THEME_CHOICES, unique=True)
-
-    # def __str__(self):
-    #     return self.roles
-    # # staff = 
-    
-
-# class User_role(models.Model):
-#     user = models.ManyToManyField(User)
-#     role = models.ManyToManyField(Role)
-
-
-
-
-
+    date_of_food_distribution = models.DateField( null = True)
