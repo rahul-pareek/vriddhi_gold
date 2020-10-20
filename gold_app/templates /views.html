@@ -1,0 +1,120 @@
+from django.shortcuts import render, HttpResponse
+from conapp.models import Member,Transctions
+import pandas as pd 
+from django.contrib.auth.models import User
+# import LOGIN_REDIRECT_URL
+from conapp.forms import UserForm,UserProfileInfoForm
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from django.template.loader import get_template
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from conapp.decorators import *
+from django.template import Context
+import pdfkit
+from conapp.utils import render_to_pdf
+from datetime import datetime
+from django.contrib.auth import logout 
+from django.shortcuts import redirect
+
+# Create your views here.
+# @timelimit(3300)
+def addData(request):pass
+
+# @timelimit(3300)
+def transData(request):pass
+
+@login_required
+def show(request):
+    transactions = []
+    if request.GET.get('q') and request.GET.get("show"):
+        print ("----------")
+        print (request.GET)
+        print ("----------")
+
+        transactions = Transctions.objects.filter(mem_num__icontains=request.GET.get('q'))
+        
+        try:
+            member = Member.objects.filter(mem_num=request.GET.get('q'))[0:100]
+            member = member[0]
+        except:
+            member = None
+        
+        print(member)
+        paginator = Paginator(transactions, 100)
+        page = request.GET.get('page', 1)
+        try:
+            transactions = paginator.page(page)
+        except PageNotAnInteger:
+            transactions = paginator.page(1)
+        except EmptyPage:
+            transactions = paginator.page(paginator.num_pages)
+        print(transactions)
+    if request.GET.get('q') and request.GET.get("pdf"):
+        transactions = Transctions.objects.filter(mem_num__icontains=request.GET.get('q'))
+        
+        try:
+            member = Member.objects.filter(mem_num=request.GET.get('q'))[0:100]
+            member = member[0]
+        except:
+            member = None
+        
+        print(member)
+        paginator = Paginator(transactions, 10)
+        page = request.GET.get('page', 1)
+        try:
+            transactions = paginator.page(page)
+        except PageNotAnInteger:
+            transactions = paginator.page(1)
+        except EmptyPage:
+            transactions = paginator.page(paginator.num_pages)
+        print(transactions)
+
+        data = {
+             'transactions': transactions,
+            'member': member,
+            'q': request.GET.get('q'),
+        }
+        # today = date.today()
+        # print(today)
+        q = request.GET.get('q')
+        pdf = render_to_pdf('table.html', {"data":data})
+        if pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            filename = "Account_Statement_%s.pdf" %(q)
+            content = "inline; filename= '%s'" %(filename)
+            content = "attachment; filename= %s" %(filename)
+            response['Content-Disposition'] = content
+            return response
+        return HttpResponse("Not found")
+
+    return render(request,"show.html",locals())
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request,user)
+                # return render(request, 'show.html', {})
+                return HttpResponseRedirect('/conapp/show/')
+            else:
+                return HttpResponse("Your account was inactive.")
+        else:
+            print("Someone tried to login and failed.")
+            print("They used username: {} and password: {}".format(username,password))
+            return HttpResponse("Invalid login details given")
+    else:
+        return render(request, 'login.html', {})
+
+def logout_view(request):
+    logout(request)
+    # messages.info(request, "Logged out successfully!")
+    print('............')
+    return HttpResponseRedirect('/conapp')
+    
+    
