@@ -12,13 +12,71 @@
   </head>
   <body>  
     <div class="container">
-    <form method="get">
-    {% csrf_token %}
+    <form action="" method="GET">
+    <input type="text" name="q" />
+    <button type="submit">search</button>
+   </form>
+    {% for p in seens %}
+
+    <p> {{p.name}}</p>
+
+    {% empty %}
+
+      <p> no search </p>
+    {% endfor %}
+
+    <table border="1" style="width:800px" class = "table table-striped table-bordered">
+    <th>S_No</th>
+    <th>GLA_ID</th>
+    <th> First_Name </th>
+    <th> Middle_Name</th>
+    <th>Last_Name</th>
+    <th> Aadhar</th>
+    <th> PAN</th> 
+    {% comment %} <th>Date_OF_Birth</th> {% endcomment %}
+    <th>Mobile_Registred</th>
+    <th>Mobile_Whatsapp</th>
+    {% comment %} <th>SA_MemFee</th> {% endcomment %}
+    {% comment %} <th>SA_Adjustment</th> {% endcomment %}
+    {% comment %} <th>Date_OF_Signup</th> {% endcomment %}
+    <th>Date_OF_Membership_Start</th>
+    <th>COT_Balance</th>
+    {% comment %} <th>COT_EMI</th> {% endcomment %}
+    <th>Sa_Balance</th>
+    <th>User_Group</th>
+    <th>User_Branch</th>
+    <th>User_Center</th>
+    {% comment %} <th>Date_OF_Food_Distribution</th> {% endcomment %}
+    
+    {% comment %} <h4>{{ request.GET.q }} - {{member.mem_name}}</h4> {% endcomment %}
+    {% comment %} <h4>{{ member.mem_name }}</h4> {% endcomment %}
+
+        {% for s in mem_num %} 
+      <tr>
+        <td>{{ forloop.counter }}</td> 
+        <td>{{s.mem_num}}</td>
+        <td> {{s.first_name}}</td>
+        {% comment %} <td>   {% if s.get_member %} {{ s.get_member }} {% else %} None {% endif %}</td> {% endcomment %}
+        {% comment %} <td>   {{ s.mem_num}} </td> {% endcomment %}
+        <td> {{s.middle_name}} </td>
+        <td> {{s.last_name}} </td>
+        <td> {{s.aadhar}}  </td>
+        <td> {{s.pan}} </td>
+        {% comment %} <td> {{s.date_of_birth}} </td> {% endcomment %}
+        <td> {{s.mobile_registred}} </td>
+        <td> {{s.mobile_whatsapp}} </td>
+        {% comment %} <td> {{s.date_of_signup}} </td> {% endcomment %}
+        <td> {{s.date_of_memstart}} </td>
+        <td> {{s.cot_balance}} </td>
+        {% comment %} <td> {{s.cot_emi}} </td> {% endcomment %}
+        <td> {{s.sa_balance}} </td>
+        <td> {{s.user_group}} </td>
+        <td> {{s.user_branch}} </td>
+        <td> {{s.user_center}} </td>
+        {% comment %} <td> {{s.date_of_food_distribution}} </td> {% endcomment %}
         
-        <input type="text" name="q" padding = "12px 20px" margin = "8px 0" value='{{ request.GET.q }}'>
-        <input type="submit" value="Search" class = "btn" name="show">
-        <input type="submit" value="Download" class = "btn" name="pdf">
-        
-        </form>
+      </tr>         
+        {% endfor %} 
+        </table>
     </body>
 </html>
