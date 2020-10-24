@@ -78,6 +78,7 @@ class User(models.Model):
 class GLA(models.Model):
     gla_branch = models.ForeignKey(branch, to_field = 'branch_name', on_delete=models.CASCADE)
     borrower = models.ForeignKey(User, to_field = 'mem_num', default = 'mem_num', on_delete=models.CASCADE)
+    gla_application_id = models.IntegerField( primary_key = True,default = '0')
     cot_balance = models.DecimalField(max_digits=9, decimal_places=2)
     param_interest_rate_gl = models.IntegerField()
     param_interest_rate_glp = models.IntegerField()
