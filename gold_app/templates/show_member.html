@@ -82,6 +82,7 @@
           $(".mem_num").click(function(){
             var user_branch_id = $(this).data("user_branch_id");
             var mem_num = $(this).data('mem_num')
+            console.log(user_branch_id)
             window.location.href = '/home?user_branch_id='+user_branch_id+'&mem_num='+mem_num;
           })
         });

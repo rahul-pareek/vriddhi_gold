@@ -5,11 +5,13 @@ from django.contrib.postgres.search import SearchVector
 
 def home_view(request): 
     context ={} 
-    # user_branch_id = request.GET.get('user_branch_id')
-    # mem_num = request.GET.get('mem_num')
-    form = GLAForm() 
+    user_branch_id = request.GET.get('user_branch_id')
+    mem_num = request.GET.get('mem_num')
+    # print(user_branch_id,mem_num,'--------Hello sir!!!!!----------')
+    user_detail = {'user_branch_id':user_branch_id,'mem_num':mem_num}
+    form = GLAForm(user_detail = user_detail)
     if request.method == "POST":
-        form = GLAForm(request.POST)
+        form = GLAForm(request.POST, user_detail = user_detail)
         if form.is_valid(): 
             form.save() 
     

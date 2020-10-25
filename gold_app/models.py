@@ -80,6 +80,7 @@ class GLA(models.Model):
     borrower = models.ForeignKey(User, to_field = 'mem_num', default = 'mem_num', on_delete=models.CASCADE)
     gla_application_id = models.IntegerField( primary_key = True,default = '0')
     cot_balance = models.DecimalField(max_digits=9, decimal_places=2)
+    dummy = models.CharField(max_length = 30,default = 'hello')
     param_interest_rate_gl = models.IntegerField()
     param_interest_rate_glp = models.IntegerField()
     param_interest_rate_glg = models.IntegerField()
