@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import django 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,7 @@ SECRET_KEY = 'i#u3igs%7+f2cl=w0^vrv@bhs2jrmv5=)r)sx_$^c_d2_1$6dm'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 
 
 # Application definition
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gold_app',
+    'django.forms',
     
 ]
 

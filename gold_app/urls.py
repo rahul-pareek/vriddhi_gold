@@ -10,4 +10,5 @@ urlpatterns = [
     path('show/', views.show),
     path('add/',views.add),
     path('home/', views.home_view),
+    path('display',views.display),
 ]

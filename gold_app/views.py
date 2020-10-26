@@ -8,10 +8,10 @@ def home_view(request):
     user_branch_id = request.GET.get('user_branch_id')
     mem_num = request.GET.get('mem_num')
     # print(user_branch_id,mem_num,'--------Hello sir!!!!!----------')
-    user_detail = {'user_branch_id':user_branch_id,'mem_num':mem_num}
-    form = GLAForm(user_detail = user_detail)
+    # user_detail = {'user_branch_id':user_branch_id,'mem_num':mem_num}
+    form = GLAForm()
     if request.method == "POST":
-        form = GLAForm(request.POST, user_detail = user_detail)
+        form = GLAForm(request.POST)
         if form.is_valid(): 
             form.save() 
     
@@ -37,6 +37,14 @@ def add(request):
     else:
        seens=None
     return render(request,'./show_member.html',{'seens': seens})
+
+def display(request):
+    gla =GLA.objects.all()[:10]
+    dis = {
+        "cot_balance":gla
+    }
+    return render(request,'./display.html',dis)
+
 
 # def add(request):
 #     # search_vector = SearchVector('user_branch_id')
