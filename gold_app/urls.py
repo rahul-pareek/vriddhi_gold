@@ -11,4 +11,6 @@ urlpatterns = [
     path('add/',views.add),
     path('home/', views.home_view),
     path('display',views.display),
+    path('lead',views.lead_view),
+
 ]

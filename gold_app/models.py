@@ -78,7 +78,7 @@ class User(models.Model):
 class GLA(models.Model):
     gla_branch = models.ForeignKey(branch, to_field = 'branch_name', on_delete=models.CASCADE)
     borrower = models.ForeignKey(User, to_field = 'mem_num', default = 'mem_num', on_delete=models.CASCADE)
-    gla_application_id = models.IntegerField( primary_key = True,default = '0')
+    gla_application_id = models.IntegerField( primary_key = True,default = '1')
     cot_balance = models.DecimalField(max_digits=9, decimal_places=2)
     dummy = models.CharField(max_length = 30,default = 'hello')
     param_interest_rate_gl = models.IntegerField()
@@ -148,6 +148,14 @@ class gold_lot(models.Model):
     tr_handover_to_admin = models.DateField()
     tr_cancellation = models.DateField()
     # retrieval_outcome = multiple choice 
+
+
+class GL_lead(models.Model):
+    enquiry = models.ForeignKey(User,to_field = 'mem_num',default = 'mem_num', on_delete=models.CASCADE)
+    lead_branch =  models.ForeignKey(branch, to_field = 'branch_name', on_delete=models.CASCADE)
+    lead_status = models.CharField(max_length = 40)
+    date_of_lead = models.DateField()
+    # status_gla_request = Multiselect field
 
 
 

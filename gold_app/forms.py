@@ -1,5 +1,5 @@
 from django import forms 
-from .models import GLA
+from .models import GLA,GL_lead
 
 class GLAForm(forms.ModelForm):
     # def __init__(self,*args, **kwargs):
@@ -15,3 +15,12 @@ class GLAForm(forms.ModelForm):
     class Meta: 
         model = GLA 
         fields = "__all__"
+
+class Gl_leadForm(forms.ModelForm):
+    class Meta:
+        model = GL_lead
+        fields = "__all__"
+        widgets = {
+            'date_of_lead': 
+            forms.DateInput(attrs={'class':'datepicker'}),
+        }
