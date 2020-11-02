@@ -151,10 +151,11 @@ class gold_lot(models.Model):
 
 
 class GL_lead(models.Model):
-    enquiry = models.ForeignKey(User,to_field = 'mem_num',default = 'mem_num', on_delete=models.CASCADE)
-    lead_branch =  models.ForeignKey(branch, to_field = 'branch_name', on_delete=models.CASCADE)
-    lead_status = models.CharField(max_length = 40)
-    date_of_lead = models.DateField()
+
+    member = models.ForeignKey(User,to_field = 'mem_num', on_delete=models.CASCADE, null = True)
+    lead_branch =  models.ForeignKey(branch, to_field = 'branch_name', on_delete=models.CASCADE, null = True)
+    lead_status = models.CharField(max_length = 40, null = True)
+    date_of_lead = models.DateField(null = True)
     # status_gla_request = Multiselect field
 
 

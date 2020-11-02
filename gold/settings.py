@@ -80,11 +80,12 @@ WSGI_APPLICATION = 'gold.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
+
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'gold',
         'USER': 'postgres',
-        'PASSWORD': '1234',
+        'PASSWORD': 'vibhor30',
         'HOST': 'localhost',
         'PORT': '5432',
         

@@ -15,14 +15,14 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-8">
-          <h1 class="mt-2">Gold Loan Lead</h1>
+          <h1 class="mt-2">Gold Loan Lead for Member Number {{ mem_num }} from Branch {{ user_branch_id }}</h1>
           <hr class="mt-0 mb-4">
           {% block content %}
            <form method="POST" class="post-form" | crispy >
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-6">
-                                {{ form.as_p }}
+                                {{ Gl_lead_Form.as_p }}
                             </div>
                         </div>
 

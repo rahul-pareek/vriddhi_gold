@@ -12,15 +12,20 @@ class GLAForm(forms.ModelForm):
 
         
 
-    class Meta: 
+    class Meta:
+
         model = GLA 
         fields = "__all__"
 
 class Gl_leadForm(forms.ModelForm):
+
     class Meta:
+
         model = GL_lead
-        fields = "__all__"
-        widgets = {
-            'date_of_lead': 
-            forms.DateInput(attrs={'class':'datepicker'}),
-        }
+        fields = ('lead_status', 'date_of_lead')
+        exclude = ('member', 'lead_branch')
+
+      #  widgets = {
+      #      'date_of_lead':
+      #      forms.DateInput(attrs={'class':'datepicker'}),
+      #  }
