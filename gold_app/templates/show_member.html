@@ -1,8 +1,15 @@
 <!doctype html>
 <html>
+
   <head>
+      {% load static %}
+
+      <
   <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <script src={% static 'sort-table.js' %}></script>
+
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -13,6 +20,7 @@
     <form action="" method="GET">
     <input type="text" name="q" />
     <button type="submit">search</button>
+
    </form>
     {% for p in mem_num %}
 
@@ -23,24 +31,24 @@
       </p> no search </p>
     {% endfor %}
     {% if seens %}
-    <table border="1" style="width:800px" class = "table table-striped table-bordered">
+    <table border="1" style="width:800px" class="js-sort-table">
     <th>S_No</th>
-    <th>GLA_ID</th>
-    <th> First_Name </th>
-    <th> Middle_Name</th>
-    <th>Last_Name</th>
-    <th> Aadhar</th>
-    <th> PAN</th> 
-    {% comment %} <th>Date_OF_Birth</th> {% endcomment %}
-    <th>Mobile_Registred</th>
+    <th class="js-sort-string">GLA_ID</th>
+    <th class="js-sort-string"> First_Name </th>
+    <th class="js-sort-string"> Middle_Name</th>
+    <th class="js-sort-string">Last_Name</th>
+    <th class="js-sort-string"> Aadhar</th>
+    <th class="js-sort-string"> PAN</th>
+    {% comment %} <th  class="js-sort-date">Date_OF_Birth</th> {% endcomment %}
+    <th >Mobile_Registred</th>
     <th>Mobile_Whatsapp</th>
-    {% comment %} <th>SA_MemFee</th> {% endcomment %}
+    {% comment %} <th class="js-sort-number">SA_MemFee</th> {% endcomment %}
     {% comment %} <th>SA_Adjustment</th> {% endcomment %}
     {% comment %} <th>Date_OF_Signup</th> {% endcomment %}
-    <th>Date_OF_Membership_Start</th>
-    <th>COT_Balance</th>
+    <th  class="js-sort-date">Date_OF_Membership_Start</th>
+    <th class="js-sort-number">COT_Balance</th>
     {% comment %} <th>COT_EMI</th> {% endcomment %}
-    <th>Sa_Balance</th>
+    <th class="js-sort-number">Sa_Balance</th>
     <th>User_Group</th>
     <th>User_Branch</th>
     <th>User_Center</th>

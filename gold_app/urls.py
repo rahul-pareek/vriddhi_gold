@@ -7,6 +7,7 @@ app_name = 'gold_app'
 
 
 urlpatterns = [
+
     path('show/', views.show),
     path('add/',views.add),
     path('home/', views.home_view),
@@ -14,4 +15,5 @@ urlpatterns = [
     path('lead',views.lead_view),
     path('main/',views.main_view),
     path('',views.main_view),
+
 ]

@@ -58,6 +58,7 @@ def destroy(request, id):
     return redirect("")  
 
 
+
 def home_view(request):
 
     context ={} 
@@ -80,6 +81,7 @@ def home_view(request):
 
 
 def show(request):
+
     usr = User.objects.all()[:10]
     # import pdb
     # pdb.set_trace()
@@ -87,6 +89,7 @@ def show(request):
     stu = {
     "mem_num": usr
      }
+
     return render(request, './show_member.html', stu)
 
 def add(request):
