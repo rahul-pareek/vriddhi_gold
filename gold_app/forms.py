@@ -22,7 +22,7 @@ class Gl_leadForm(forms.ModelForm):
     class Meta:
 
         model = GL_lead
-        fields = ('lead_status', 'date_of_lead')
+        fields = ('lead_status', 'date_of_lead','status_gla_request','status_retrieval_loan','status_retrieval','status_disbursement')
         exclude = ('member', 'lead_branch')
 
       #  widgets = {

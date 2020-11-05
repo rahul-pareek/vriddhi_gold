@@ -1,8 +1,37 @@
 from django.db import models
 # Create your models here.
+
+
+LEAD_STATUSS = (
+        ('cancelled', 'Cancelled'),
+        ('disbursement done', 'Disbursement Done'),
+        ('lead', 'Lead'),
+        ('request submitted', 'Request Submitted'),
+        ('retrieval completed', 'Retrieval Completed'),
+    )
+STATUS_GLA_REQUEST = (('cancelled','Cancelled'),
+            ('verified','Verified'),
+            ('request_taken','Request Taken'),
+            ('submitted','Submitted'),
+    )
+STATUS_RETRIEVAL_LOAN = (('sanctioned','Sanctioned'),
+            ('required','Required'),
+    )
+
+STATUS_RETRIEVAL = (('required','Required'),
+            ('completed','Completed'),
+    )
+#pending (paid but not received gold from customer )
+
+STATUS_DISBURSEMENT = (('disbursed','Disbursed'),
+            ('ready for scheduling','Ready for Scheduling'),
+    )
+#cancelled from customer after retrieval bcz customer is not agree terms( T&C ) 
+
+
 class branch(models.Model):
     branch_code = models.CharField(primary_key=True, max_length = 100)
-    branch_name = models.CharField(unique = True, max_length = 30)
+    branch_name = models.CharField(unique = True,default  = 'HO', max_length = 30)
     # s_no = models.AutoField()
     # def __unicode__(self):
     #     return u'%s' % (self.branch_name)
@@ -11,11 +40,11 @@ class branch(models.Model):
 
 
 class collection_day (models.Model):
-    coll_id = models.IntegerField(primary_key = True,default = 0) 
     collection_day = models.CharField(max_length = 100,null = True )
+    coll_id = models.IntegerField(primary_key = True,default = 1)
 
 class collection_time(models.Model):
-    coll_time_id = models.IntegerField(primary_key = True,default = 0)
+    coll_time_id = models.IntegerField(primary_key = True,default = 1)
     collection_time = models.CharField( max_length=50,null = True)
 
 class community(models.Model):
@@ -72,13 +101,31 @@ class User(models.Model):
     # community = 
     date_of_food_distribution = models.DateField( null = True)
 
+class GL_lead(models.Model):
+    #foreign_key in GLA
+    enquiry = models.ForeignKey(User,to_field = 'mem_num',default = 'mem_num', on_delete=models.CASCADE)
+    lead_branch =  models.ForeignKey(branch, to_field = 'branch_name',default = 'HO', on_delete=models.CASCADE)
+    lead_id = models.AutoField(primary_key = True)
+    lead_status = models.CharField(max_length=20,choices=LEAD_STATUSS,default = 'null', blank = True,null=True)
+    # lead_status = models.CharField(max_length = 40)Multiselect field
+    date_of_lead = models.DateField(default = '')
+    status_gla_request = models.CharField(max_length=20,choices=STATUS_GLA_REQUEST,default = 'null',blank = True,null=True)
+    # gla_status = models.Char Multi Select
+    # status_gla = multiple choice
+    # status_gla_request = multiple choice
+    status_retrieval_loan = models.CharField(max_length=20,choices=STATUS_RETRIEVAL_LOAN,default = 'null',blank = True,null=True)
+    #status_retrieval_loan = multiple choice
+    status_retrieval = models.CharField(max_length=20,choices=STATUS_RETRIEVAL,default = 'null',blank = True,null=True)
+    # staus_retrieval = multiple_choice
+    status_disbursement = models.CharField(max_length=20,choices=STATUS_DISBURSEMENT,default = 'null', blank = True,null=True)
+    # status_disbursement = multiple choice 
 
 
 
 class GLA(models.Model):
     gla_branch = models.ForeignKey(branch, to_field = 'branch_name', on_delete=models.CASCADE)
-    borrower = models.ForeignKey(User, to_field = 'mem_num', default = 'mem_num', on_delete=models.CASCADE)
-    gla_application_id = models.IntegerField( primary_key = True,default = '1')
+    borrower = models.ForeignKey(User, to_field = 'mem_num', default = '0000', on_delete=models.CASCADE)
+    gla_application_id = models.IntegerField( primary_key = True,default = 1)
     cot_balance = models.DecimalField(max_digits=9, decimal_places=2)
     dummy = models.CharField(max_length = 30,default = 'hello')
     param_interest_rate_gl = models.IntegerField()
@@ -150,13 +197,13 @@ class gold_lot(models.Model):
     # retrieval_outcome = multiple choice 
 
 
-class GL_lead(models.Model):
+# class GL_lead(models.Model):
 
-    member = models.ForeignKey(User,to_field = 'mem_num', on_delete=models.CASCADE, null = True)
-    lead_branch =  models.ForeignKey(branch, to_field = 'branch_name', on_delete=models.CASCADE, null = True)
-    lead_status = models.CharField(max_length = 40, null = True)
-    date_of_lead = models.DateField(null = True)
-    # status_gla_request = Multiselect field
+#     member = models.ForeignKey(User,to_field = 'mem_num', on_delete=models.CASCADE, null = True)
+#     lead_branch =  models.ForeignKey(branch, to_field = 'branch_name', on_delete=models.CASCADE, null = True)
+#     lead_status = models.CharField(max_length = 40, null = True)
+#     date_of_lead = models.DateField(null = True)
+#     # status_gla_request = Multiselect field
 
 
 

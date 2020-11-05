@@ -1,120 +1,153 @@
-from django.shortcuts import render, HttpResponse
-from conapp.models import Member,Transctions
-import pandas as pd 
-from django.contrib.auth.models import User
-# import LOGIN_REDIRECT_URL
-from conapp.forms import UserForm,UserProfileInfoForm
-from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponseRedirect, HttpResponse
-from django.urls import reverse
-from django.template.loader import get_template
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from conapp.decorators import *
-from django.template import Context
-import pdfkit
-from conapp.utils import render_to_pdf
-from datetime import datetime
-from django.contrib.auth import logout 
-from django.shortcuts import redirect
+<!doctype html>
+<html>
+  <head>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-# Create your views here.
-# @timelimit(3300)
-def addData(request):pass
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>  
+    <div class="container">
+    <form action="" method="GET">
+    {% comment %} <input type="text" name="q" />
+    <button type="submit">search</button> {% endcomment %}
+   </form>
+    <table border="1" style="width:800px" class = "table table-striped table-bordered">
+    {% comment %} <th>S No</th> {% endcomment %}
+    {% comment %} <th>Member</th> {% endcomment %}
+    {% comment %} <th>Lead_Branch</th> {% endcomment %}
+    {% comment %} <th> Lead_ID </th> {% endcomment %}
+    {% comment %} <th> Lead_Status</th> {% endcomment %}
+    {% comment %} <th>Date_Of_Lead</th> {% endcomment %}
+    {% comment %} <tr><th> Status_Gla_Request</th>
+    <th> Status_Retrieval_Loan</th> 
+    <th>Status_Retrieval</th>
+    <th>Status_Disbursement</th></tr>
+        {% for data in data1 %} 
+      {% comment %} <tr> {% endcomment %}
+        {% comment %} <td>{{ forloop.counter }}</td>  {% endcomment %}
+        {% comment %} <td> {{data.enquiry}}</td> {% endcomment %}
+        {% comment %} <td> {{data.lead_branch}} </td> {% endcomment %}
+        {% comment %} <td> {{data.lead_id}} </td> {% endcomment %}
+        {% comment %} <td> {{data.lead_status}}  </td> {% endcomment %}
+        {% comment %} <td> {{data.date_of_lead}} </td> {% endcomment %}
+        {% comment %} <td> {{data.status_gla_request}} </td>
+        <td> {{data.status_retrieval_loan}} </td>
+        <td> {{data.status_retrieval}} </td>
+        <td> {{data.status_disbursement}} </td>
+      </tr>      {% endcomment %}
+{% comment %} <th class="kn-table-link"> {% endcomment %}
+            {% comment %} <span class="table-fixed-label">GLA Details</span> {% endcomment %}
+          {% comment %} </th> {% endcomment %}
+      
+          <th class="field_269">
+            <span class="table-fixed-label">
 
-# @timelimit(3300)
-def transData(request):pass
+            
+              <a href="#field_269|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Status - GLA Request</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
 
-@login_required
-def show(request):
-    transactions = []
-    if request.GET.get('q') and request.GET.get("show"):
-        print ("----------")
-        print (request.GET)
-        print ("----------")
+      
+          <th class="field_270">
+            <span class="table-fixed-label">
 
-        transactions = Transctions.objects.filter(mem_num__icontains=request.GET.get('q'))
-        
-        try:
-            member = Member.objects.filter(mem_num=request.GET.get('q'))[0:100]
-            member = member[0]
-        except:
-            member = None
-        
-        print(member)
-        paginator = Paginator(transactions, 100)
-        page = request.GET.get('page', 1)
-        try:
-            transactions = paginator.page(page)
-        except PageNotAnInteger:
-            transactions = paginator.page(1)
-        except EmptyPage:
-            transactions = paginator.page(paginator.num_pages)
-        print(transactions)
-    if request.GET.get('q') and request.GET.get("pdf"):
-        transactions = Transctions.objects.filter(mem_num__icontains=request.GET.get('q'))
-        
-        try:
-            member = Member.objects.filter(mem_num=request.GET.get('q'))[0:100]
-            member = member[0]
-        except:
-            member = None
-        
-        print(member)
-        paginator = Paginator(transactions, 10)
-        page = request.GET.get('page', 1)
-        try:
-            transactions = paginator.page(page)
-        except PageNotAnInteger:
-            transactions = paginator.page(1)
-        except EmptyPage:
-            transactions = paginator.page(paginator.num_pages)
-        print(transactions)
+            
+              <a href="#field_270|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Status - Retrieval Loan</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
 
-        data = {
-             'transactions': transactions,
-            'member': member,
-            'q': request.GET.get('q'),
-        }
-        # today = date.today()
-        # print(today)
-        q = request.GET.get('q')
-        pdf = render_to_pdf('table.html', {"data":data})
-        if pdf:
-            response = HttpResponse(pdf, content_type='application/pdf')
-            filename = "Account_Statement_%s.pdf" %(q)
-            content = "inline; filename= '%s'" %(filename)
-            content = "attachment; filename= %s" %(filename)
-            response['Content-Disposition'] = content
-            return response
-        return HttpResponse("Not found")
+      
+          <th class="field_271">
+            <span class="table-fixed-label">
 
-    return render(request,"show.html",locals())
+            
+              <a href="#field_271|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Status - Retrieval</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+          <th class="field_272">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_272|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Status - Disbursement</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+    </tr></thead>
+    {% comment %} {% for data in data1 %} {% endcomment %}
+    <tbody>
+<tr class="kn-table-group kn-group-level-1"><td style="" colspan="6">Lead</td></tr><tr id="5f9fdf864d69910015c30f58">
 
 
-def user_login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request,user)
-                # return render(request, 'show.html', {})
-                return HttpResponseRedirect('/conapp/show/')
-            else:
-                return HttpResponse("Your account was inactive.")
-        else:
-            print("Someone tried to login and failed.")
-            print("They used username: {} and password: {}".format(username,password))
-            return HttpResponse("Invalid login details given")
-    else:
-        return render(request, 'login.html', {})
+  <td class="kn-table-link"><span class="col-2">
+{% comment %} <a href="#scm/scm-gold-loan-applications/gla-details2/5f9fdf864d69910015c30f58?ref=view_154_sort%3Dfield_246%7Cdesc" class="kn-link kn-link-page" address="true">view</a> {% endcomment %}
+  </span></td>
 
-def logout_view(request):
-    logout(request)
-    # messages.info(request, "Logged out successfully!")
-    print('............')
-    return HttpResponseRedirect('/conapp')
-    
-    
+  <td class="field_269 cell-edit" data-column-index="3" data-field-key="field_269"><span class="col-3">
+Request Taken
+  </span></td>
+
+</tr>
+
+<tr class="kn-table-group kn-group-level-1"><td style="" colspan="6">Request Submitted</td></tr><tr id="5f9fe9d9e00377001717954d">
+
+
+  
+
+  <td class="field_269 cell-edit" data-column-index="3" data-field-key="field_269"><span class="col-3">
+Submitted
+  </span></td>
+
+  <td class="field_270 cell-edit" data-column-index="4" data-field-key="field_270"><span class="col-4">
+Required
+  </span></td>
+
+  <td class="field_271 cell-edit" data-column-index="5" data-field-key="field_271"><span class="col-5">
+Required
+  </span></td>
+
+</tr>
+
+
+</tbody>
+  </table>
+</div>
+
+
+
+
+        </table>
+        {% comment %} {% endfor %} {% endcomment %}
+    </body>
+</html>
+      
+          

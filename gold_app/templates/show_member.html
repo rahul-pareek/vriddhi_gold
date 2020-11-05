@@ -4,16 +4,30 @@
   <head>
       {% load static %}
 
-      <
+      
   <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <script src={% static 'sort-table.js' %}></script>
+    <script src={% static 'function.js' %}></script>
 
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  var k = 0;
+var progb = document.getElementById("bar");
+function count(){
+if(k < 100){
+k = k + 1;
+progb.value = k;
+progb.getElementsByTagName("span")[0].textContent = k;
+}
+setTimeout("count()", 400);
+}
+count();
+</script>
   </head>
   <body>  
     <div class="container">
@@ -28,17 +42,18 @@
 
     {% empty %}
 
-      </p> no search </p>
+      <p> no search </p>
     {% endfor %}
     {% if seens %}
-    <table border="1" style="width:800px" class="js-sort-table">
+    <input type="search" class="light-table-filter" data-table="table-info" placeholder="Filter/Search">
+    <table border="1" style="width:800px" class="js-sort-table table-info table table table-striped table-bordered">
     <th>S_No</th>
     <th class="js-sort-string">GLA_ID</th>
     <th class="js-sort-string"> First_Name </th>
     <th class="js-sort-string"> Middle_Name</th>
     <th class="js-sort-string">Last_Name</th>
-    <th class="js-sort-string"> Aadhar</th>
-    <th class="js-sort-string"> PAN</th>
+    <th class="js-sort-string"> Aadhar_Number</th>
+    <th class="js-sort-string"> PAN_Number</th>
     {% comment %} <th  class="js-sort-date">Date_OF_Birth</th> {% endcomment %}
     <th >Mobile_Registred</th>
     <th>Mobile_Whatsapp</th>

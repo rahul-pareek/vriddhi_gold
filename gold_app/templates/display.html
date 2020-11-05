@@ -17,6 +17,7 @@
 
 .button1 {background-color: #4CAF50;} /* Green */
 .button2 {background-color: #008CBA;} /* Blue */
+
 </style>
   <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -30,88 +31,151 @@
   <body>  
     {% comment %} {% if transactions %} {% endcomment %}
     <table border="1" style="width:800px" class = "table table-striped table-bordered">
-    <th>S.No</th>
+    {% comment %} <th>S.No</th> {% endcomment %}
+    {% for s in transactions %} 
+    
+    <tr>
     <th> gla_application_id</th>
+     <td> {{s.gla_application_id}}</td>
+    </tr>
+    <tr>
     <th> cot_balance</th>
+    <td>   {{ s.cot_balance}} </td>
+    </tr>
+    <tr>
     <th>dummy</th>
+    <td> {{s.dummy}} </td>
+    </tr>
+    <tr>
     <th> param_interest_rate_gl</th>
+    <td> {{s.param_interest_rate_gl}}  </td>
+    </tr>
+    <tr>
     <th> param_interest_rate_glp</th> 
+    <td> {{s.param_interest_rate_glp}} </td>
+    </tr>
+    <tr>
     <th>param_interest_rate_glg</th>
+    <td> {{s.param_interest_rate_glpg}} </td>
+    </tr>
+    <tr>
     <th>param_lpf_rate </th>
+    <td> {{s.param_lpf_rate}} </td>
+    </tr>
+    <tr>
     <th>param_share_purchase_rate</th>
+    <td> {{s.param_share_purchase_rate}} </td>
+    </tr>
+    <tr>
     <th>param_base_share_value</th>
+    <td> {{s.param_base_share_value}} </td>
+    </tr>
+    <tr>
     <th>param_gold_appraisal_rate</th>
+    <td> {{s.param_gold_appraisal_rate}} </td>
+    </tr>
+    <tr>
     <th>param_gold_rate_gl</th>
+    <td> {{s.param_gold_rate_gl}} </td>
+    </tr>
+    <tr>
     <th>param_gold_rate_glp</th>
+    <td> {{s.param_gold_rate_glp}} </td>
+    </tr>
+    <tr>
     <th>param_gold_rate_glg</th>
+    <td> {{s.param_gold_rate_glg}} </td>
+    </tr>
+    <tr>
     <th>param_cot_repay_rate_recommended</th>
+    <td> {{s.param_cot_repay_rate_recommended}} </td>
+    </tr>
+    <tr>
     <th>req_gold_loan_amount</th>
+    <td> {{s.req_gold_loan_amount}} </td>
+    </tr>
+    <tr>
     <th>tr_lead_entered</th>
+    <td> {{s.tr_lead_entered}} </td>
+    </tr>
+    <tr>
     <th>tr_request_taken</th>
+    <td> {{s.tr_request_taken}} </td>
+    </tr>
+    <tr>
     <th>tr_gla_cancelled</th>
+    <td> {{s.tr_gla_cancelled}} </td>
+    </tr>
+    <tr>
     <th>retrieval_loan_amount_requested</th>
+    <td> {{s.retrieval_loan_amount_requested}} </td>
+    </tr>
+    <tr>
     <th>tr_retrieval_loan_requested</th>
+    <td> {{s.tr_retrieval_loan_requested}} </td>
+    </tr>
+    <tr>
     <th>tr_retrieval_completed</th>
+    <td> {{s.tr_retrieval_completed}} </td>
+    </tr>
+    <tr>
     <th>reason_for_cancellation</th>
+    <td> {{s.reason_for_cancellation}} </td>
+    </tr>
+    <tr>
     <th>disbursement_schedule</th>
+    <td> {{s.disbursement_schedule}} </td>
+    </tr>
+    <tr>
     <th>tr_disbursement</th>
+    <td> {{s.tr_disbursement}} </td>
+    </tr>
+    <tr>
     <th>gl_gold_net_weight</th>
+    <td> {{s.gl_gold_net_weight}} </td>
+    </tr>
+    <tr>
     <th>gl_loan_amount</th>
+    <td> {{s.gl_loan_amount}} </td>
+    </tr>
+    <tr>
     <th>gl_tenure</th>
+    <td> {{s.gl_tenure}} </td>
+    </tr>
+    <tr>
     <th>gl_interest_rate</th>
+    <td> {{s.gl_interest_rate}} </td>
+    </tr>
+    <tr>
     <th>gl_date_of_first_installment</th>
+    <td> {{s.gl_date_of_first_installment}} </td>
+    </tr>
+    <tr>
     <th>gl_lpf</th>
+    <td> {{s.gl_lpf}} </td>
+    </tr>
+    <tr>
     <th>gl_share_purchase</th>
+    <td> {{s.gl_share_purchase}} </td>
+    </tr>
+    <tr>
     <th>gl_gold_appraisal_fee</th>
+    <td> {{s.gl_gold_appraisal_fee}} </td>
+    </tr>
+    <tr>
     <th>gl_cot_repayment</th>
+    <td> {{s.gl_cot_repayment}} </td>
+    </tr>
+    <tr>
     <th>gl_cot_repayment</th>
+    <td> {{s.gl_cot_repayment}} </td>
+    </tr>
+    <tr>
     <th>gl_total_retrieval_amount</th>
-        {% for s in transactions %} 
-      <tr>
-        {% comment %} <td>{{ forloop.counter }}</td>  {% endcomment %}
-        <td> {{s.gla_application_id}}</td>
-        <td>   {{ s.cot_balance}} </td>
-        <td> {{s.dummy}} </td>
-        <td> {{s.cot_memfee}} </td>
-        <td> {{s.param_interest_rate_gl}}  </td>
-        <td> {{s.param_interest_rate_glp}} </td>
-        <td> {{s.param_interest_rate_glpg}} </td>
-        <td> {{s.param_lpf_rate}} </td>
-        <td> {{s.param_share_purchase_rate}} </td>
-        <td> {{s.param_base_share_value}} </td>
-        <td> {{s.param_gold_appraisal_rate}} </td>
-        <td> {{s.param_gold_rate_gl}} </td>
-        <td> {{s.param_gold_rate_glp}} </td>
-        <td> {{s.param_gold_rate_glg}} </td>
-        <td> {{s.param_cot_repay_rate_recommended}} </td>
-        <td> {{s.req_gold_loan_amount}} </td>
-        <td> {{s.tr_lead_entered}} </td>
-        <td> {{s.tr_request_taken}} </td>
-        <td> {{s.tr_gla_cancelled}} </td>
-        <td> {{s.retrieval_loan_amount_requested}} </td>
-        <td> {{s.tr_retrieval_loan_requested}} </td>
-        <td> {{s.tr_retrieval_completed}} </td>
-        <td> {{s.reason_for_cancellation}} </td>
-        <td> {{s.disbursement_schedule}} </td>
-        <td> {{s.tr_disbursement}} </td>
-        <td> {{s.gl_gold_net_weight}} </td>
-        <td> {{s.gl_loan_amount}} </td>
-        <td> {{s.gl_tenure}} </td>
-        <td> {{s.gl_interest_rate}} </td>
-        <td> {{s.gl_date_of_first_installment}} </td>
-        <td> {{s.gl_lpf}} </td>
-        <td> {{s.gl_share_purchase}} </td>
-        <td> {{s.gl_gold_appraisal_fee}} </td>
-        <td> {{s.gl_cot_repayment}} </td>
-        <td> {{s.gl_cot_repayment}} </td>
         <td> {{s.gl_total_retrieval_amount}} </td>
-        
-      </tr>         
+        </tr>
         {% endfor %} 
     </table>
-    {% comment %} {% include 'pagination.html' with page=transactions %} {% endcomment %}
-    {% comment %} {% endif %} {% endcomment %}
-    </div>
   </body>
 </html>
 
