@@ -9,12 +9,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
   <body>  
-    <div class="container">
-    <form action="" method="GET">
+    {% comment %} <div class="container"> {% endcomment %}
+    {% comment %} <form action="" method="GET">
     {% comment %} <input type="text" name="q" />
     <button type="submit">search</button> {% endcomment %}
-   </form>
-    <table border="1" style="width:800px" class = "table table-striped table-bordered">
+   {% comment %} </form> {% endcomment %} 
+    
+   {% comment %} <a href="./gl.html">Update</a> {% endcomment %}
+   <table border="1" style="width:800px" class = "table table-striped table-bordered">
     {% comment %} <th>S No</th> {% endcomment %}
     {% comment %} <th>Member</th> {% endcomment %}
     {% comment %} <th>Lead_Branch</th> {% endcomment %}
@@ -41,6 +43,35 @@
 {% comment %} <th class="kn-table-link"> {% endcomment %}
             {% comment %} <span class="table-fixed-label">GLA Details</span> {% endcomment %}
           {% comment %} </th> {% endcomment %}
+          <th class="field_270">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_270|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>GLA Name</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+          <th class="field_270">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_270|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>GLA Details</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+          
+
       
           <th class="field_269">
             <span class="table-fixed-label">
@@ -105,48 +136,56 @@
     </tr></thead>
     {% comment %} {% for data in data1 %} {% endcomment %}
     <tbody>
+
+    {% for data in gl %}
+    <td>{{ data.pk }} GL-{{ data.member.pk }}-{{data.member.first_name }}-{{data.lead_branch.pk}}</td>
+    {% if  data.lead_status == 'lead' %}
 <tr class="kn-table-group kn-group-level-1"><td style="" colspan="6">Lead</td></tr><tr id="5f9fdf864d69910015c30f58">
-
-
-  <td class="kn-table-link"><span class="col-2">
-{% comment %} <a href="#scm/scm-gold-loan-applications/gla-details2/5f9fdf864d69910015c30f58?ref=view_154_sort%3Dfield_246%7Cdesc" class="kn-link kn-link-page" address="true">view</a> {% endcomment %}
-  </span></td>
-
   <td class="field_269 cell-edit" data-column-index="3" data-field-key="field_269"><span class="col-3">
-Request Taken
+Request Taken 
   </span></td>
+  <td> <a href='/update/{{ data.pk}}?member={{ data.member.pk }}'>Update</a>
 
 </tr>
+{% endif %}
 
+{% if data.lead_status == 'request submitted' %}
 <tr class="kn-table-group kn-group-level-1"><td style="" colspan="6">Request Submitted</td></tr><tr id="5f9fe9d9e00377001717954d">
-
-
-  
-
   <td class="field_269 cell-edit" data-column-index="3" data-field-key="field_269"><span class="col-3">
-Submitted
+ {% comment %} {{%data.lead%}} {% endcomment %}
   </span></td>
 
   <td class="field_270 cell-edit" data-column-index="4" data-field-key="field_270"><span class="col-4">
 Required
   </span></td>
+  
 
   <td class="field_271 cell-edit" data-column-index="5" data-field-key="field_271"><span class="col-5">
 Required
   </span></td>
 
 </tr>
+{% endif %}
 
+{% if  data.lead_status == 'retrieval completed' %}
+<tr class="kn-table-group kn-group-level-1"><td style="" colspan="6">Retrieval Completed</td></tr><tr id="5f9fdf864d69910015c30f58">
+</tr>
+{% endif %}
 
+{% if  data.lead_status == 'Disbursement Done' %}
+<tr class="kn-table-group kn-group-level-1"><td style="" colspan="6">Disbursement Done</td></tr><tr id="5f9fdf864d69910015c30f58">
+</tr>
+{% endif %}
+
+{% if  data.lead_status == 'cancelled' %}
+<tr class="kn-table-group kn-group-level-1"><td style="" colspan="6">Cancelled</td></tr><tr id="5f9fdf864d69910015c30f58">
+</tr>
+{% endif %}
+{% endfor %}
 </tbody>
   </table>
 </div>
-
-
-
-
         </table>
-        {% comment %} {% endfor %} {% endcomment %}
     </body>
 </html>
       

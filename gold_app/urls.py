@@ -15,5 +15,7 @@ urlpatterns = [
     path('lead',views.lead_view),
     path('main/',views.main_view),
     path('',views.main_view),
+    path('gl',views.gl_lead_view),
+    path('update/<int:gla_id>',views.update),
 
 ]

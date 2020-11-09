@@ -1,11 +1,22 @@
 from gold_app.models import User,GLA,GL_lead, branch
 from .forms import GLAForm,Gl_leadForm
+from django.db.models import Count
 from django.shortcuts import render, HttpResponse
 from django.contrib.postgres.search import SearchVector
+from django.shortcuts import (get_object_or_404, render, HttpResponseRedirect)
 
 def main_view(request):
 
     return render(request, "main_page.html")
+
+def gl_lead_view(request):
+    gl = GL_lead.objects.all()
+    print(gl)
+    # mem_num = request..GET.get('mem_num')
+    # user_branch_id = request.GET.get('user_branch_id') 
+    
+    # print(gla)
+    return render(request, './views.html', locals())
 
 def lead_view(request):
 
@@ -16,15 +27,15 @@ def lead_view(request):
     if request.method == "POST":
 
         Gl_lead_Form = Gl_leadForm(request.POST)
-        print("I am in")
+        # print("I am in")
 
         if Gl_lead_Form.is_valid():
 
                 lead_branch = branch.objects.get(branch_code=user_branch_id)
                 member = User.objects.get(mem_num=mem_num)
-                print("Hello", Gl_lead_Form.cleaned_data.get('lead_status'))
+                # print("Hello", Gl_lead_Form.cleaned_data.get('lead_status'))
                 Gl_lead_instance = GL_lead.objects.create(member = member, lead_branch = lead_branch, lead_status = Gl_lead_Form.cleaned_data.get('lead_status'), date_of_lead = Gl_lead_Form.cleaned_data.get('date_of_lead'))
-                print(Gl_lead_instance.lead_branch)
+                # print(Gl_lead_instance.lead_branch)
                 Gl_lead_instance.save()
                 return render(request, "lead.html", {'Gl_lead_Form': Gl_lead_Form, 'mem_num': mem_num, 'user_branch_id': user_branch_id})
 
@@ -37,18 +48,21 @@ def lead_view(request):
 
 
 def edit(request, id):
-
+    context = {}
     gl_lead = GL_lead.objects.get(id=id)  
     return render(request,'', {'gl_lead':gl_lead}) 
 
 
-def update(request, id):
-
-    gl_lead = GL_lead.objects.get(id=id)  
-    form = Gl_leadForm(request.POST, instance = gl_lead)  
-    if form.is_valid():  
-        form.save()  
-        return redirect("")  
+def update(request, gla_id):
+    
+    gl_lead = GL_lead.objects.get(id=gla_id)  
+    member = request.GET.get('member')
+    # gl_lead = get_object_or_404(Gl_leadForm, id = id)
+    if gl_lead:
+        gl_lead.member = member
+        gl_lead.save()
+    # context["form"] = form  
+    return render(request,"update_view.html",{'gl_lead':gl_lead})  
 
 
 def destroy(request, id):
@@ -81,23 +95,22 @@ def home_view(request):
 
 
 def show(request):
-
     usr = User.objects.all()[:10]
     # import pdb
     # pdb.set_trace()
-    
     stu = {
     "mem_num": usr
      }
-
     return render(request, './show_member.html', stu)
 
 def add(request):
     search_vector = SearchVector('user_branch_id')
     if ('q' in request.GET) and request.GET.get('q').strip():
         query_string=request.GET.get('q')
-        seens = User.objects.filter(user_branch__branch_name__icontains=request.GET.get('q')).values()   
-        # print(seens)
+        seens = User.objects.filter(user_branch__branch_name__icontains=request.GET.get('q')).values()
+        # seens = User.objects.group_by('mem_num','date_of_memstart')
+
+        print(seens)
         # import  pdb; pdb.set_trace()
     else:
        seens=None
@@ -110,10 +123,6 @@ def display(request):
         print(transactions)
     else:
         transactions = None
-    # gla =GLA.objects.all()[:10]
-    # dis = {
-    #     "cot_balance":transactions
-    # }
     return render(request,'./display.html',{'transactions':transactions})
 
 

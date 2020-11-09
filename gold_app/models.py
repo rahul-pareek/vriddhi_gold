@@ -1,4 +1,5 @@
 from django.db import models
+# from django.contrib.auth.models import UserManager
 # Create your models here.
 
 
@@ -101,9 +102,11 @@ class User(models.Model):
     # community = 
     date_of_food_distribution = models.DateField( null = True)
 
+    # objects = UserManager()
+
 class GL_lead(models.Model):
     #foreign_key in GLA
-    enquiry = models.ForeignKey(User,to_field = 'mem_num',default = 'mem_num', on_delete=models.CASCADE)
+    member = models.ForeignKey(User,to_field = 'mem_num',default = 'mem_num', on_delete=models.CASCADE)
     lead_branch =  models.ForeignKey(branch, to_field = 'branch_name',default = 'HO', on_delete=models.CASCADE)
     lead_id = models.AutoField(primary_key = True)
     lead_status = models.CharField(max_length=20,choices=LEAD_STATUSS,default = 'null', blank = True,null=True)
@@ -123,9 +126,10 @@ class GL_lead(models.Model):
 
 
 class GLA(models.Model):
+    gla_gl = models.ForeignKey(GL_lead, to_field = 'lead_id',default = 1, on_delete=models.CASCADE)
     gla_branch = models.ForeignKey(branch, to_field = 'branch_name', on_delete=models.CASCADE)
     borrower = models.ForeignKey(User, to_field = 'mem_num', default = '0000', on_delete=models.CASCADE)
-    gla_application_id = models.IntegerField( primary_key = True,default = 1)
+    gla_application_id = models.IntegerField( primary_key = True, default = 1)
     cot_balance = models.DecimalField(max_digits=9, decimal_places=2)
     dummy = models.CharField(max_length = 30,default = 'hello')
     param_interest_rate_gl = models.IntegerField()
