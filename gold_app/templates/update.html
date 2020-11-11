@@ -1,0 +1,434 @@
+<html>
+
+<script>
+#container div{
+    display:inline-block;
+    width:130px;
+}
+</script>
+
+<style>
+.button {
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+
+.column {
+  float: left;
+  width: 40%;
+  padding: 15px;
+}
+
+.column-right {
+  float: right;
+  width: 40%;
+  padding: 15px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<body>
+<h2>Request Management</h2>
+<div class="button">
+        <button class="button">Update GLA Request</button>
+        <button class="button">Submit GLA Request</button>
+        <button class="button">Cancel Request</button>
+        <button class ="button">Back</button>
+      </div>
+      {% comment %} <div class="btn btn-primary">
+        <button class="btn btn-primary">update GLA Request</button>
+        <button class="btn btn-primary">Submit GLA Request</button>
+        <button class="btn btn-primary">Cancel Request</button>
+        <button class ="btn btn-primary">Back</button>
+      </div> {% endcomment %}
+<div class="row">
+  <div class="column">
+  <table border="1" style="width:800px" class = "table table-striped table-bordered">
+    {% comment %} {% for s in gl %} {% endcomment %}
+    <tr>
+    <th>GLA Name</th>
+    <td>{{ s.pk }} GL-{{ s.borrower.pk }}-{{s.borrower.first_name }}-{{s.gla_branch.pk}}</td>
+    </tr>
+    <tr><th>Branch</th><td>{{s.gla_branch.pk}}</td></tr>
+    <tr><th>Borrower</th><td>{{ s.borrower.pk }}</td></tr>
+    <tr><th>COT Balance</th><td>{{ s.cot_balance }}</td></tr>
+    {% comment %} <tr>
+    <th>Req - Retrieval Required</th>
+    <td></td>
+    </tr> {% endcomment %}
+  </table>
+    {% comment %} <th>Req - Tenure</th> {% endcomment %}
+  </div>
+  <div class="column-right">
+  <table border="1" style="width:800px" class = "table table-striped table-bordered">
+  <tr><th>Req - NetWeight - Gold</th><td>{{ s.req_netweight_gold }}</td></tr>
+  <tr><th>Req -Gold Loan Amount</th><td>{{s.req_gold_loan_amount}}</td></tr>
+  <tr><th>Req Max Loan Amount - GL</th><td>{{ s.req_max_loan_amount_gl }}</td></tr>
+  <tr><th>Req Max Loan Amount - GLP</th><td>{{ s.req_max_loan_amount_glp }}</td></tr>
+  <tr><th>Req Max Loan Amount - GLG</th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  </table>
+  </div>
+</div>
+  <br/>
+  <div class="row">
+  <div class="column">
+   <table border="1" style="width:800px" class = "table table-striped table-bordered">
+  <tr><th>Status GLA</th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  <tr><th>Status GLA Request</th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  <tr><th>Status Retrieval Loan </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  <tr><th>Status Retrieval </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  <tr><th>Status Disbursement </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+   </table>
+  </div>
+  <div class="column-right">
+   <table border="1" style="width:800px" class = "table table-striped table-bordered">
+      <tr><th>Tr - Lead Entered  </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+      <tr><th>Tr - Request Taken  </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+      <tr><th>Tr - Request Submitted  </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+      <tr><th>Tr - GLA Cancelled  </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+   </table>
+  </div>
+  </div>
+  <div class="column">
+  <table border="1" style="width:800px" class = "table table-striped table-bordered">
+      <tr><th>Calc - EMI - 1 Year - GL  </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+      <tr><th>Calc - EMI - 2 Year - GL  </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+      <tr><th>Calc - EMI - 3 Year - GL  </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  </table>
+  </div>
+  <br/>
+  <div class = "column">
+  <table border="1" style="width:800px" class = "table table-striped table-bordered">
+  <tr><th>Count - Gold Lots</th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  <tr><th>Count - Gold Lots Pending Retrieval</th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  <tr><th>Count - Gold Lots Retrieved</th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  </table>
+  </div>
+  <div class = "column">
+  <table border="1" style="width:800px" class = "table table-striped table-bordered">
+  <tr><th>Sum - Retrieval Loan Requirement</th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  <tr><th>Sum - Retrieval Amount Pending </th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  <tr><th>Sum - Total Net Weight</th><td>{{ s.req_max_loan_amount_glg }}</td></tr>
+  </table>
+  </div>
+</div>
+
+</table>
+
+<table border="1" style="width:800px" class = "table table-striped table-bordered">
+<th>Gold-Lot Name</th>
+<th>Gross Weight</th>
+<th>Net Value</th>
+<th>Outstanding Amount</th>
+<th>Jewller Name</th>
+<th>Jewller Mobile</th>
+<th>Status Gold Lot</th>
+<th>Status Retrieval</th>
+<th>Edit Gold Lot</th>
+<th>Delete</th>
+<tr>
+{% comment %} <td></td> {% endcomment %}
+</tr>
+</table>
+     
+
+{% comment %} </div></div></div><div class="view-group view-group-3"><div class="view-column view-column-group-3"><div class="kn-menu kn-view view_162" id="view_162">
+
+
+  <div class="control">
+
+
+
+  <a class="kn-link kn-link-1 kn-link-page kn-button" href="https://vriddhi.knack.com/vriddhi-goldloan#scm/scm-gold-loan-applications/gla-details2/5f9fdf864d69910015c30f58/add-gold-lot/5f9fdf864d69910015c30f58">
+    
+    <span>Add Gold Lot</span>
+  </a>
+
+
+</div>
+</div><div class="kn-table kn-view view_161" id="view_161">
+  <div class="view-header">
+    
+      <h2 class="kn-title">Gold Lots for Retrieval - Edit</h2>
+    
+
+    
+  </div>
+
+
+
+<!-- .kn-table-table is required for column headers -->
+<div class="kn-records-nav">
+
+<div class="js-filter-menu tabs is-toggle is-flush"></div>
+
+ 
+    <div class="level" style="margin-bottom: .75em;">
+        <form class="table-keyword-search">
+          <p class="control has-addons">
+            <input name="keyword" class="input" type="text" placeholder="search by keyword">
+            <a class="kn-button search">
+              search
+            </a>
+            
+          </p>
+        </form>
+    </div>
+  
+
+
+
+  
+    <div class="level" style="margin-bottom: .75em;">
+      <div class="level-left">
+
+      
+
+      
+
+      
+        <div class="kn-filters-nav">
+          <a class="kn-add-filter kn-button is-small" style="margin-right: 10px;">
+            <span class="icon"><i class="fa fa-filter"></i></span>
+            <span>Add filters</span>
+          </a>
+        </div>
+      
+        <div class="kn-filters" id="view_161_filters" style="display: none;">
+          <ul></ul>
+        </div>
+      </div>
+      <div class="kn-pagination level-right">
+  
+
+  
+
+  
+  
+
+      </div>
+    </div>
+  
+  <div class="kn-filter-rule" style="display: none;">
+    <span class="field">
+      <select class="field" name="field"></select>
+    </span>
+    <span class="operator">
+      <select class="operator" name="operator"></select>
+    </span>
+    <span class="value">
+      <input name="value" type="text">
+    </span>
+    <input class="add" type="button" value="Add">
+    <a class="remove" href="#">cancel</a>
+  </div>
+</div>
+<div class="kn-table-wrapper">
+  {% comment %} <table class="kn-table kn-table-table is-bordered is-striped"> {% endcomment %}
+    {% comment %} <thead>
+      
+          <tr><th class="field_279 sorted-asc">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_279|desc" address="true" class="kn-sort level is-compact">
+            
+              <span>Gold Lot Name</span>
+              
+                <span class="icon is-small is-transparent" style="margin-left: 3px;">
+                  <i class="fa fa-sort-amount-asc"></i>
+                </span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+          <th class="field_283">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_283|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Gross Weight</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+          <th class="field_284">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_284|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Net Weight</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+          <th class="field_285">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_285|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Outstanding amount</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+          <th class="field_286">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_286|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Jeweller Name</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+          <th class="field_287">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_287|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Jeweller - Mobile</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+          <th class="field_289">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_289|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Status - Gold Lot</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+          <th class="field_290">
+            <span class="table-fixed-label">
+
+            
+              <a href="#field_290|asc" address="true" class="kn-sort level is-compact">
+            
+              <span>Status - Retrieval</span>
+              
+            
+              </a>
+            
+            </span>
+          </th>
+
+      
+          <th class="kn-table-link">
+            <span class="table-fixed-label">Edit Gold Lot</span>
+          </th>
+      
+          <th class="kn-table-link">
+            <span class="table-fixed-label">Delete</span>
+          </th>
+      
+    </tr></thead>
+    <tbody>
+<tr id="5f9ff1933306cb0016b56a53">
+
+  <td class="field_279" data-column-index="0" data-field-key="field_279"><span class="col-0">
+11-Lot-12-GL-M51937-Verani Vivek Sansare
+  </span></td>
+
+  <td class="field_283 cell-edit" data-column-index="1" data-field-key="field_283"><span class="col-1">
+20.00
+  </span></td>
+
+  <td class="field_284 cell-edit" data-column-index="2" data-field-key="field_284"><span class="col-2">
+20.00
+  </span></td>
+
+  <td class="field_285 cell-edit" data-column-index="3" data-field-key="field_285"><span class="col-3">
+15,000
+  </span></td>
+
+  <td class="field_286 cell-edit" data-column-index="4" data-field-key="field_286"><span class="col-4">
+Kishan
+  </span></td>
+
+  <td class="field_287 cell-edit" data-column-index="5" data-field-key="field_287"><span class="col-5">
+<a href="tel:9920201374">(992) 020-1374</a>
+  </span></td>
+
+  <td class="field_289 cell-edit" data-column-index="6" data-field-key="field_289"><span class="col-6">
+Created
+  </span></td>
+  <td class="field_290 cell-edit" data-column-index="7" data-field-key="field_290"><span class="col-7">
+Required
+  </span></td>
+  <td class="kn-table-link"><span class="col-8">
+<a href="#scm/scm-gold-loan-applications/gla-details2/5f9fdf864d69910015c30f58/submit-gla-request/5f9fdf864d69910015c30f58/edit-gold-lot/5f9ff1933306cb0016b56a53" class="kn-link kn-link-page" address="true">edit</a>
+  </span></td>
+  <td class="kn-table-link"><span class="col-9">
+<a class="kn-link-delete" href="#">delete</a>
+  </span></td>
+</tr>
+</tbody>
+  </table>
+</div>
+</div></div></div><div class="kn-view kn-back-link"><a href="#scm/scm-gold-loan-applications" class="ang-link" address="true">Back to Gold Loan Applications</a></div></div> {% endcomment %} 
+{% comment %}{% endfor %}{% endcomment %}
+</body>
+</html>

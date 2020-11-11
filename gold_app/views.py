@@ -1,9 +1,29 @@
-from gold_app.models import User,GLA,GL_lead, branch
-from .forms import GLAForm,Gl_leadForm
+from gold_app.models import User,GLA,GL_lead, branch,gold_lot
+from .forms import GLAForm,Gl_leadForm,Gold_lotForm
 from django.db.models import Count
 from django.shortcuts import render, HttpResponse
 from django.contrib.postgres.search import SearchVector
 from django.shortcuts import (get_object_or_404, render, HttpResponseRedirect)
+
+def gold_lot_view(request):
+    
+    Gold_loat_Form = Gold_lotForm(request.POST)
+    if request.method == "POST":
+
+        Gold_loat_Form = Gold_lotForm(request.POST)
+        # print("I am in")
+
+        if Gold_loat_Form.is_valid():
+                # gold_load_instance = GL_lead.objects.create(gla_gl = gla_gl, gla_branch = gla_branch,borrower=borrower, lead_status = Gl_lead_Form.cleaned_data.get('lead_status'), date_of_lead = Gl_lead_Form.cleaned_data.get('date_of_lead'))
+                gold_load_instance.save()
+                return render(request, "update.html")
+
+        else:
+
+            print("Invalid")
+            Gold_loat_Form = Gold_lotForm(request.POST)
+
+    return render(request, "update.html")
 
 def main_view(request):
 
@@ -71,7 +91,10 @@ def destroy(request, id):
     gl_lead.delete()  
     return redirect("")  
 
-
+def gla_update(request):
+    gl = GLA.objects.all()
+    # print(gla)
+    return render(request,'./update.html', locals())
 
 def home_view(request):
 

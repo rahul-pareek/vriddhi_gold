@@ -27,8 +27,12 @@ STATUS_RETRIEVAL = (('required','Required'),
 STATUS_DISBURSEMENT = (('disbursed','Disbursed'),
             ('ready for scheduling','Ready for Scheduling'),
     )
+
 #cancelled from customer after retrieval bcz customer is not agree terms( T&C ) 
 
+REQ_RETRIEVAL = (('yes','Yes'),
+            ('no','No'),
+) 
 
 class branch(models.Model):
     branch_code = models.CharField(primary_key=True, max_length = 100)
@@ -132,6 +136,7 @@ class GLA(models.Model):
     gla_application_id = models.IntegerField( primary_key = True, default = 1)
     cot_balance = models.DecimalField(max_digits=9, decimal_places=2)
     dummy = models.CharField(max_length = 30,default = 'hello')
+    retrieval = models.CharField(max_length=20,choices=REQ_RETRIEVAL,default = 'null',blank = True, null=True)
     param_interest_rate_gl = models.IntegerField()
     param_interest_rate_glp = models.IntegerField()
     param_interest_rate_glg = models.IntegerField()
@@ -145,6 +150,12 @@ class GLA(models.Model):
     param_cot_repay_rate_recommended = models.IntegerField()
     req_gold_loan_amount = models.IntegerField()
     req_netweight_gold = models.BooleanField()
+    req_max_loan_amount_gl = models.IntegerField(default = 0)
+    req_max_loan_amount_glp = models.IntegerField(default = 0)
+    req_max_loan_amount_glg = models.IntegerField(default = 0)
+    calc_emi_1_year_gl = models.IntegerField(default = 0)
+    calc_emi_2_year_gl = models.IntegerField(default = 0)
+    calc_emi_3_year_gl = models.IntegerField(default = 0)
     # req_retrieval_required = #multiple choice
     # req_tenure = multiple choices
     # req_vriddhi_gla = models.FileField(upload_to='documents/')
@@ -181,15 +192,16 @@ class GLA(models.Model):
 class gold_lot(models.Model):
     # member = models.ForeignKey(member,on_delete = models.CASCADE)
     gla = models.ForeignKey(GLA,on_delete = models.CASCADE)
-    gross_weight = models.DecimalField(max_digits=9, decimal_places=2)
-    net_weight = models.DecimalField(max_digits=9, decimal_places=2)
-    outstanding_amount = models.IntegerField()
-    jewller_name = models.CharField(max_length = 50)
-    jewller_mobile = models.CharField(max_length=12)
-    jewller_address = models.CharField( max_length=128)
+    gross_weight = models.DecimalField(max_digits=9, decimal_places=2)#
+    net_weight = models.DecimalField(max_digits=9, decimal_places=2)#
+    outstanding_amount = models.IntegerField()#
+    jewller_last_interest_paid_when = models.DateField(default = '')#
+    jewller_name = models.CharField(max_length = 50)#
+    jewller_mobile = models.CharField(max_length=12)#
+    jewller_address = models.CharField( max_length=128)#
     jewller_landmark = models.CharField(max_length = 30)
-    jewller_working_hours = models.CharField(max_length = 30)
-    jewller_holidays = models.CharField(max_length = 30)
+    jewller_working_hours = models.CharField(max_length = 30)#
+    jewller_holidays = models.CharField(max_length = 30)#
     # status_gold_lot = multiple choice
     # status_retrieval = multiple choice
     schedule_retrieval = models.DateField()

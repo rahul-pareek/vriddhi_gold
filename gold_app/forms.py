@@ -1,5 +1,5 @@
 from django import forms 
-from .models import GLA,GL_lead
+from .models import GLA,GL_lead,gold_lot
 
 class GLAForm(forms.ModelForm):
     # def __init__(self,*args, **kwargs):
@@ -10,12 +10,16 @@ class GLAForm(forms.ModelForm):
         # self.dummy = user_detail['user_branch_id']
             # self.fields['mem_num'].label = user_detail['mem_num']
 
-        
-
     class Meta:
 
         model = GLA 
         fields = "__all__"
+
+class Gold_lotForm(forms.ModelForm):
+    class Meta:
+        model  = gold_lot
+        fields = "__all__"
+        exclude = ()
 
 class Gl_leadForm(forms.ModelForm):
 
