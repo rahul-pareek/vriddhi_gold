@@ -55,9 +55,10 @@
 <body>
 <h2>Request Management</h2>
 <div class="button">
-        <button class="button">Update GLA Request</button>
-        <button class="button">Submit GLA Request</button>
-        <button class="button">Cancel Request</button>
+       <a href = 'http://127.0.0.1:8000/update_gla'> <button class="button">Update GLA Request</button> </a>
+        {% comment %} #argument {% endcomment %}
+        <a href = 'http://127.0.0.1:8000/submit_gla'><button class="button">Submit GLA Request</button></a>
+        <a href = 'http://127.0.0.1:8000/delete_gla'><button class="button">Cancel Request</button></a>
         <button class ="button">Back</button>
       </div>
       {% comment %} <div class="btn btn-primary">
@@ -149,8 +150,8 @@
 <th>Jewller Mobile</th>
 <th>Status Gold Lot</th>
 <th>Status Retrieval</th>
-<th>Edit Gold Lot</th>
-<th>Delete</th>
+<a href = ''><th>Edit Gold Lot</th></a>
+<a href = ''><th>Delete</th></a>
 <tr>
 {% comment %} <td></td> {% endcomment %}
 </tr>

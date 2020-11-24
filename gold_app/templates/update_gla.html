@@ -1,0 +1,107 @@
+<html>
+<body>
+{% comment %} <table>
+<th>Req-Netweight-Gold</th>
+<th>Req-Gold Loan Amount</th>
+<th>Req Retrieval Required</th>
+<th>Req - Tenure</th>
+<th>Req Max Loan Amount -GL</th>
+<th>Req Max Loan Amount -GLP</th>
+<th>Req Max Loan Amount -GLG</th>
+<th>Param - Gold Rate - GL</th>
+<th>Param - Gold Rate - GLP</th>
+<th>Param - Gold Rate - GLG</th> {% endcomment %}
+{% comment %} {% for gl in instance %}
+<tr>
+<td>{{gl.req_netweight_gold}} </td>
+<td>{{gl.req_gold_loan_amount}}</td>
+<td>{{gl.retrieval}}</td>
+<td>{{gl.req_tenure}}</td>
+<td>{{gl.req_max_loan_amount_gl}}</td>
+<td>{{gl.req_max_loan_amount_glp}}</td>
+<td>{{gl.req_max_loan_amount_glg}}</td>
+<td>{{param_gold_rate_gl}}</td>
+<td>{{param_gold_rate_glp}}</td>
+<td>{{param_gold_rate_glg}}</td>
+{% endfor %}
+</table> {% endcomment %}
+<form method="POST" class="post-form" action="/update/{{instance.gla_gl.pk}}">  
+        {% csrf_token %}  
+    <div class="container">  
+<br>  
+    <div class="form-group row">  
+    <label class="col-sm-1 col-form-label"></label>  
+    <div class="col-sm-4">  
+    <h3>Update Details</h3>  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Req-Netweight-Gold:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="eid" id="id_eid" required maxlength="20" value="{{ instance.req_netweight_gold }}"/>  
+    </div>  
+  </div>  
+  <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Req-Gold Loan Amount:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="ename" id="id_ename" required maxlength="100" value="{{ instance.req_gold_loan_amount }}" />  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Req Retrieval Required:</label>  
+    <div class="col-sm-4">  
+        <input type="email" name="eemail" id="id_eemail" required maxlength="254" value="{{ instance.retrieval }}" />  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Req - Tenure:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="econtact" id="id_econtact" required maxlength="15" value="{{ instance.req_tenure }}" />  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Req Max Loan Amount -GL:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="econtact" id="id_econtact" required maxlength="15" value="{{ instance.req_max_loan_amount_gl }}" />  
+    </div>  
+  </div>
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Req Max Loan Amount -GLP:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="econtact" id="id_econtact" required maxlength="15" value="{{ instance.req_max_loan_amount_glp }}" />  
+    </div>  
+  </div> 
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Req Max Loan Amount -GLG:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="econtact" id="id_econtact" required maxlength="15" value="{{ instance.req_max_loan_amount_glg }}" />  
+    </div>  
+  </div> 
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Param - Gold Rate - GL:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="econtact" id="id_econtact" required maxlength="15" value="{{ instance.param_gold_rate_gl }}" />  
+    </div>  
+  </div> 
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Param - Gold Rate - GLP:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="econtact" id="id_econtact" required maxlength="15" value="{{ instance.param_gold_rate_glp }}" />  
+    </div>  
+  </div> 
+    <div class="form-group row">  
+    <label class="col-sm-2 col-form-label">Param - Gold Rate - GLG:</label>  
+    <div class="col-sm-4">  
+        <input type="text" name="econtact" id="id_econtact" required maxlength="15" value="{{ instance.param_gold_rate_glg }}" />  
+    </div>  
+  </div>  
+    <div class="form-group row">  
+    <label class="col-sm-1 col-form-label"></label>  
+    <div class="col-sm-4">  
+    <button type="submit" class="btn btn-success">Update</button>  
+    </div>  
+  </div>  
+    </div>  
+</form>  
+</body>
+</html>
