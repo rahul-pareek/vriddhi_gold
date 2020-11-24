@@ -153,7 +153,7 @@ def submit_GLA(request,gla_gl):
 def delete_GLA(request, gla_gl):
     instance = GLA.objects.get(gla_gl = gla_gl)
     instance.delete()
-    return redirect('/gold_lot')
+    return redirect('/gold_lot_id')
 
     # Gold_loat_Form = Gold_lotForm(request.POST)
     # if request.method == "POST":
